@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  {%  load static %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Mateus Correa Piragibe Faria</title>
+  <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  
+<h6>Mateus Correa Piragibe Faria</h6>
+<p>Tenho <i> 18 </i> anos, faço <u>Engenharia de Produção</u> na <strong>PUC-RIO</strong>,estou cursando o segundo período. Gosto muito de carros. Abaixo, uma imagem da Ferrari SF90 Stradale, um dos meus modelos de carro favoritos. </p>
+ 
+  <div><img src="{% static 'images/ferrari.jpg'%}" width="500"></div>
+  </div>
+  <p>Para mais informações sobre a Ferrari SF90 Stradale, <a href="https://www.youtube.com/watch?v=ZaE_JuKDN3I" target="_blank">Clique Aqui</a>.</p>
+<p> Abaixo, uma lista dos carros que mais gosto:</p>
+
+<!--ul>  
+  
+<li> Ferrari LaFerrari </li>
+<li> Lamborghini Aventador</li>
+  <li> Bugatti </li>
+  <li> McLaren P1</li>
+  <li> Lamborghini Aventador</li>
+  <li>Aston Martin DBS Superleggera </li>
+</ul>-->
+  <ul>
+    {% for carro in Carros %}
+      <li>{{ carro.nome }}
+      <a href="/carros/update/{{ carro.id }}">Atualizar</a>
+        <a href="/carros/delete/{{ carro.id }}">Remover</a></li></li>
+    {% endfor %}
+  </ul>
+  <a href="/carros">Adicionar novos carros</a>
+<p>Abaixo, uma lista dos Video Games que mais gosto:</p>
+  
+<!--ol> 
+<li> Grand Theft Auto V </li>
+<li> The Witcher 3: Wild Hunt  </li>
+  <li> Fortnite </li>
+  <li> Call of Duty: Warzone </li>
+  <li> God of War </li>
+  <li> Cyberpunk 2077 </li>
+</ol>-->
+   <ol>
+    {% for jogo in videogames %}
+      <li>{{ jogo.nome }}
+      <a href="/videogames/update/{{ jogo.id }}">Atualizar</a>
+        <a href="/videogames/delete/{{ jogo.id }}">Remover</a
+      </li>
+    {% endfor %}
+  </ol>
+  <a href="/videogames">Adicionar novos videogames </a>
+</body>
+
+</html>

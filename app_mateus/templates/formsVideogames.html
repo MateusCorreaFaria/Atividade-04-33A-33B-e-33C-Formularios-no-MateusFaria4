@@ -1,0 +1,21 @@
+<h1>{{ action }}  Videogame</h1>
+<form method="post">
+  {% csrf_token %}
+  <div>
+    <label>nome:</label>
+    <input name="nome" value="{{ jogo.nome}}">
+  </div>
+    <div>
+    <label>empresa</label>
+    <input name="empresa" value="{{ jogo.empresa }}">
+  </div>
+    <div>
+    <label>estilo</label>
+  <input name="estilo" value="{{ jogo.estilo }}" >
+  </div>
+    <div>
+    <label>data de lançamento</label>
+    <input type="date" name="data_lançamento" value="{{ jogo.data_lançamento }}">
+  </div>
+  <input type="submit" value="registrar">
+</form>

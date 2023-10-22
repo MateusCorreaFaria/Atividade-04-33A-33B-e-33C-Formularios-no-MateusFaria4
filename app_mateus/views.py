@@ -1,7 +1,11 @@
 from django.shortcuts import render, redirect
 from .models import carros, videogames
+from django.contrib.auth.models import User
+from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+@login_required
 def home(request):
     carrosL = carros.objects.all()
     videogamesL = videogames.objects.all()
@@ -10,7 +14,7 @@ def home(request):
         "Carros": carrosL,
         "videogames": videogamesL
     })
-
+@login_required
 def create_carros(request):
     if request.method == 'POST':
         carros.objects.create(
@@ -22,6 +26,7 @@ def create_carros(request):
         return redirect('review') 
     return render(request, 'forms.html', context={"action": "Adicionar"})
 
+@login_required
 def update_carros(request, id):
     carro = carros.objects.get(id=id)
     if request.method == "POST":
@@ -33,7 +38,7 @@ def update_carros(request, id):
 
         return redirect("review")
     return render(request, "forms.html", context={"action": "Atualizar", "carros": carros})
-
+@login_required
 def delete_carros(request, id):
     carro = carros.objects.get(id=id)
     if request.method == "POST":
@@ -42,6 +47,7 @@ def delete_carros(request, id):
         return redirect("review")
     return render(request, "are_you_sure.html", context={"carros": carros})
 
+@login_required
 def create_videogames(request):
     if request.method == 'POST':
         videogames.objects.create(
@@ -53,6 +59,7 @@ def create_videogames(request):
         return redirect('review') 
     return render(request, 'formsVideogames.html', context={"action": "Adicionar"})
 
+@login_required
 def update_videogames(request, id):
     videogame = videogames.objects.get(id=id)
     if request.method == "POST":
@@ -65,6 +72,7 @@ def update_videogames(request, id):
         return redirect("review")
     return render(request, "formsVideogames.html", context={"action": "Atualizar", "videogames": videogames})
 
+@login_required
 def delete_videogames(request, id):
     Videogame = videogames.objects.get(id=id)
     if request.method == "POST":
@@ -72,3 +80,38 @@ def delete_videogames(request, id):
             Videogame.delete()
         return redirect("review")
     return render(request, "are_you_Videogames.html", context={"Videogames": Videogame})
+
+
+
+def create_user(request):
+  if request.method == "POST":
+    user = User.objects.create_user(
+      request.POST["username"],
+      request.POST["email"], 
+      request.POST["password"]
+    )
+    user.save()
+    return redirect("review")
+  return render(request, "register.html", context={"action": "Adicionar"})
+
+def login_user(request):
+  if request.method == "POST":
+    user = authenticate(
+      username = request.POST["username"],
+      password = request.POST["password"]
+    )
+
+    if user != None:
+      login(request, user)
+    else:
+      return render(request, "login.html", context={"error_msg": "Usuário não existe"})
+    print(request.user)
+    print(request.user.is_authenticated)
+    if request.user.is_authenticated:
+      return redirect("review")
+    return render(request, "login.html", context={"error_msg": "Usuário não pode ser autenticado"})
+  return render(request, "login.html")
+
+def logout_user(request):
+  logout(request)
+  return redirect("login")

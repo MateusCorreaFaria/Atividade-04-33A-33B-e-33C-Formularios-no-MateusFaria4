@@ -11,7 +11,11 @@
 </head>
 
 <body>
-  
+
+  {% if request.user.is_authenticated %}
+    <b>Bem-vindo, {{request.user.username}}</b> <br> 
+    <a href="/users/logout">Sair</a>
+  {% endif %}
 <h6>Mateus Correa Piragibe Faria</h6>
 <p>Tenho <i> 18 </i> anos, faço <u>Engenharia de Produção</u> na <strong>PUC-RIO</strong>,estou cursando o segundo período. Gosto muito de carros. Abaixo, uma imagem da Ferrari SF90 Stradale, um dos meus modelos de carro favoritos. </p>
  

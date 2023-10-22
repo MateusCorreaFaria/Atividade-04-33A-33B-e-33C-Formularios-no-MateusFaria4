@@ -18,14 +18,17 @@ from django.urls import path
 from app_mateus import views
 
 urlpatterns = [
+  path('users/login/', views.login_user, name="login"),
+  path('users/logout/', views.logout_user, name="logout"),
+  path('users', views.create_user),
   path('', views.home, name = 'review'),
   path('admin/', admin.site.urls),
-    path('carros',views.create_carros),   
-    path('carros/update/<id>',views.update_carros),
-    path('carros/delete/<id>',views.delete_carros),
-    path('videogames',views.create_videogames),   
-    path('videogames/update/<id>',views.update_videogames),
-    path('videogames/delete/<id>',views.delete_videogames)
+  path('carros',views.create_carros),   
+  path('carros/update/<id>',views.update_carros),
+  path('carros/delete/<id>',views.delete_carros),
+  path('videogames',views.create_videogames),   
+  path('videogames/update/<id>',views.update_videogames),
+  path('videogames/delete/<id>',views.delete_videogames)
    
     
 

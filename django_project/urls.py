@@ -28,4 +28,5 @@ urlpatterns = [
     path('videogames/delete/<id>',views.delete_videogames)
    
     
+
 ]
